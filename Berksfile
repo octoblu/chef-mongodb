@@ -1,4 +1,4 @@
 source "https://supermarket.getchef.com"
 
-cookbook "mongodb", git: 'git://github.com/netinlet/chef-mongodb_replicaset.git', rel: 'mongodb'
+cookbook "mongodb", git: 'git://github.com/edelight/chef-mongodb.git'
 cookbook "cron"

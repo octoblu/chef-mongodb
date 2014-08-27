@@ -12,15 +12,12 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
-  OpsWorks::NodejsConfiguration.npm_install(application, node[:deploy][application], release_path, node[:opsworks_nodejs][:npm_install_options])
-
-  ruby_block "mgrt #{application}" do
-    block do
-      Chef::Log.info("mgrt")
-      Chef::Log.info(`mgrt up --storage mongo-storage.js`)
-      $? == 0
-    end
+  execute "/usr/local/bin/npm install" do
+    cwd "#{deploy[:deploy_to]}/current"
   end
 
+  execute "/usr/local/bin/npm start" do
+    cwd "#{deploy[:deploy_to]}/current"
+  end
 end
 

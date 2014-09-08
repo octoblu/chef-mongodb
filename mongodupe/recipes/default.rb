@@ -4,3 +4,10 @@ cron 'copy-prod-to-staging' do
   command 'mongo --host mongo-rs/localhost --eval "db=db.getSiblingDB(\'octoblu-staging\'); db.dropDatabase(); db=db.getSiblingDB(\'admin\'); db.runCommand({copydb:1, fromdb:\'octoblu\', todb:\'octoblu-staging\'}); db=db.getSiblingDB(\'meshblu-staging\'); db.dropDatabase(); db=db.getSiblingDB(\'admin\'); db.runCommand({copydb:1, fromdb:\'meshblu\', todb:\'meshblu-staging\'});"'
   user    'root'
 end
+
+cron 'run-octoblu-migrations' do
+  minute 5
+  hour 9 # Server is in UTC, 9am UTC -> 1am
+  command "cd /srv/www/octoblu_migrations_staging/current && MGRT_MONGODB_URI=#{ENV['MGRT_MONGODB_URI']} npm start"
+  user    'root'
+end

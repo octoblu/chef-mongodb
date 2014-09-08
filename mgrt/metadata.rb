@@ -6,4 +6,3 @@ version     "1.0.0"
 
 depends 'deploy'
 depends 'opsworks_commons'
-depends 'cron'

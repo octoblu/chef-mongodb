@@ -21,3 +21,9 @@ node[:deploy].each do |application, deploy|
   end
 end
 
+cron 'run-octoblu-migrations' do
+  minute 5
+  hour 9 # Server is in UTC, 9am UTC -> 1am
+  command "cd #{deploy[:deploy_to]}/current && MGRT_MONGODB_URI=#{ENV['MGRT_MONGODB_URI']} npm start"
+  user    'root'
+end

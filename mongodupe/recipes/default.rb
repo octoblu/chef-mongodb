@@ -8,6 +8,6 @@ end
 cron 'run-octoblu-migrations' do
   minute 5
   hour 9 # Server is in UTC, 9am UTC -> 1am
-  command "cd /srv/www/octoblu_migrations_staging/current && MGRT_MONGODB_URI=mongodb://172.31.33.28,172.31.38.108:27017,172.31.32.97/meshblu-staging npm start"
+  command "cd /srv/www/octoblu_migrations_staging/current && MGRT_MONGODB_URI=mongodb://172.31.33.28,172.31.38.108:27017,172.31.32.97/meshblu-staging /usr/local/bin/npm start"
   user    'root'
 end

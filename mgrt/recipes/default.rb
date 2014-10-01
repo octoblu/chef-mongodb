@@ -14,7 +14,7 @@ node[:deploy].each do |application, deploy|
 
   env_vars = []
 
-  node[:environment_variables].each do |name, value|
+  deploy[:environment_variables].each do |name, value|
     env_vars << "#{name}=\"#{value}\""
   end
 

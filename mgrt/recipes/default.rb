@@ -12,11 +12,17 @@ node[:deploy].each do |application, deploy|
     app application
   end
 
+  env_vars = []
+
+  node[:environment_variables].each do |name, value|
+    env_vars << "#{name}=\"#{value}\""
+  end
+
   execute "/usr/local/bin/npm install" do
     cwd "#{deploy[:deploy_to]}/current"
   end
 
-  execute "/usr/local/bin/npm start" do
+  execute "/usr/bin/env #{env_vars.join(" ")} /usr/local/bin/npm start" do
     cwd "#{deploy[:deploy_to]}/current"
   end
 end
